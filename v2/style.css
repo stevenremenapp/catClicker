@@ -1,0 +1,20 @@
+.catClicker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cat1,
+.cat2 {
+    border: 2px solid black;
+    width: 240px;
+    height: 265px;
+    padding: 5px;
+    margin-right: 5px;
+    text-align: center;
+}
+
+#cat2Image {
+    height: 159px;
+    width: 240px;
+}
