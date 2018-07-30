@@ -1,0 +1,66 @@
+let a = {
+	cat: 1,
+}
+undefined
+a.cat
+1
+let b = a.cat
+undefined
+b
+1
+b++
+1
+b++
+2
+b++
+3
+a.cat
+1
+a.cat++
+1
+a.cat++
+2
+a.cat++
+3
+a.cat
+4
+a.cat
+4
+++a.cat
+5
+a.cat++
+5
+a.cat
+6
+a.cat++
+6
+a
+{cat: 7}
+b
+4
+let c = {
+	cat: {
+		name: 'Truman'
+}
+}
+undefined
+c.cat
+{name: "Truman"}name: "Truman"__proto__: Object
+let d = c.cat
+undefined
+d.name
+"Truman"
+d.name = 'Suman'
+"Suman"
+c
+{cat: {…}}cat: {name: "Suman"}__proto__: Object
+let e = c.cat.name;
+undefined
+e
+"Suman"
+e = 'Truman'
+"Truman"
+e
+"Truman"
+c
+{cat: {…}}cat: {name: "Suman"}__proto__: Object
