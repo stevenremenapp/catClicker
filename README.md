@@ -1,0 +1,1 @@
+Cat Clicker practice for refactoring JavaScript!

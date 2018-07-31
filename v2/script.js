@@ -23,8 +23,8 @@ for (let i = 0; i < catDivs.length; i++) {
     let catName = document.createElement('p');
     catName.setAttribute('class', 'catName');
     catDivs[i].prepend(catName);
-    let cat = catDivs[i].dataset.cat;
-    catName.textContent = cats[cat].name;    
+    let catId = catDivs[i].dataset.cat;
+    catName.textContent = cats[catId].name;    
 }
 
 
@@ -56,13 +56,3 @@ catClicker.addEventListener('click', function(event) {
         // }
     }
 });
-
-
-// let cat1Image = document.getElementById('cat1Image');
-// let clickCount = 0;
-
-// cat1Image.addEventListener('click', function() {
-//     let clickCountDisplay = document.getElementById('cat1ClickCount');
-//     clickCount++;
-//     clickCountDisplay.textContent = clickCount;
-// });
