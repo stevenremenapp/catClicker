@@ -38,30 +38,15 @@ cats = {
 }
 
 // Global Selectors
-
 let catClicker = document.querySelector('.catClicker');
-let catDivs = document.querySelectorAll('.cat');
-console.log(catDivs);
-
-// Toggle cat div
-
-// let cat1 = document.querySelector('ul > li');
-// cat1.addEventListener('click', function() {
-//     for (let i = 0; i < catDivs.length; i++) {
-//         catDivs[i].classList.toggle('goAway');
-//     }    
-// });
-
-
-// PSEUDO CODE TO CREATE NAV LIST OF CAT NAMES
 
 // Create a ul element with class of nav
 let catListUl = document.createElement('UL');
 catListUl.setAttribute('class', 'nav');
 
+
 // Create as many li elements as there are cats in the object
 for (const catNum in cats) {
-    // console.log(cats[catNum]);
     let catNameListOption = document.createElement('LI');
     catNameListOption.textContent = cats[catNum].name;
     catNameListOption.setAttribute('data-cat', catNum);
@@ -70,16 +55,23 @@ for (const catNum in cats) {
 }
 
 
-// PSEUDO CODE TO CREATE A CAT DIV
-
 // Set event listener on the nav list
-
 let catListNav = document.querySelector('.nav');
 catListNav.addEventListener('click', function(event) {
+    let catDivs = document.querySelectorAll('.cat');
     let selectedCatName = event.target;
-    if (selectedCatName.tagName === 'LI') {
-        let selectedCatId = selectedCatName.dataset.cat;
-        console.log(selectedCatId);
+    let selectedCatId = selectedCatName.dataset.cat;
+    
+    // If list item is clicked and there are catDivs created/existing, then clear them
+    if (selectedCatName.tagName === 'LI' && catDivs) {
+        for (let i = 0; i < catDivs.length; i++) {
+            catDivs[i].classList.add('hidden');
+        }
+    }
+    // If list item is clicked and has not already been created, then create it
+    if ((selectedCatName.tagName === 'LI') && (!(selectedCatName.classList.contains('created')))) {
+        selectedCatName.setAttribute('class', 'created');
+        
         // Create div with class of cat and correct data-cat attribute
         let newCatDiv = document.createElement('div');
         newCatDiv.setAttribute('class', 'cat');
@@ -94,27 +86,31 @@ catListNav.addEventListener('click', function(event) {
         // Add span with text 'Number of cat clicks: '
         let catClickCountTitle = document.createElement('span');
         catClickCountTitle.textContent = 'Number of cat clicks: ';
+        // Add span to display clickCount
+        clickDisplay = document.createElement('span');
+        clickDisplay.setAttribute('class', 'currentClicks');
+        clickDisplay.textContent = '0';
         // Add items to DOM in catClicker div
         catClicker.appendChild(newCatDiv).appendChild(displayCatName);
         newCatDiv.appendChild(catImage);
         newCatDiv.appendChild(catClickCountTitle);
+        newCatDiv.appendChild(clickDisplay);
+    // If list item is clicked and has already been created
+    } else if ((selectedCatName.tagName === 'LI') && (selectedCatName.classList.contains('created'))) {
+        // Hide all catDivs
+        for (let i = 0; i < catDivs.length; i++) {
+            catDivs[i].classList.add('hidden');
+            console.log(selectedCatId);
+            console.log(catDivs[i].dataset.cat);
+            // Reveal catDiv that matches the list item clicked
+            if (selectedCatId === catDivs[i].dataset.cat) {
+                catDivs[i].classList.remove('hidden');
+            }
+        }
     }
 });
 
-
-// PSEUDO CODE TO HIDE & SHOW DIVS AS CLICKS OCCUR
-
-
-// Page starts with empty catClicker div
-// First click adds cat div to the DOM and displays it
-// If user clicks on the same name then nothing changes
-// If user clicks on a different cat name then the current cat div is hidden (add css class) and the corresponding clicked cat div is created and added to the DOM (and so on and so on)
-// If user clicks on yet another cat name the currently displayed cat div is hidden and the clicked cat div is display or created and then displayed
-
-
-
 // Set event listener to count clicks on images
-
 catClicker.addEventListener('click', function(event) {
     if (event.target.tagName === 'IMG') {
         console.log(event.target);
@@ -125,18 +121,7 @@ catClicker.addEventListener('click', function(event) {
         // catScore += 1;
         cats[catClickedId].clicks += 1;
         console.log(cats[catClickedId].clicks);
-
-            if (catDivClicked.classList.contains('scoreAdded')) {
-                let currentClickDisplay = catDivClicked.querySelector('.currentClicks');
-                console.log(currentClickDisplay);
-                currentClickDisplay.textContent = cats[catClickedId].clicks;
-            } else {
-                let newClickDisplay = document.createElement('span');
-                // newClickDisplay.innerHTML = "Number of cat clicks: <span class = 'currentClicks'></span>";
-                newClickDisplay.setAttribute('class', 'currentClicks');
-                catDivClicked.appendChild(newClickDisplay);
-                newClickDisplay.textContent = cats[catClickedId].clicks;
-                catDivClicked.classList.add('scoreAdded');
-            }            
+        let currentClickDisplay = catDivClicked.querySelector('.currentClicks');
+        currentClickDisplay.textContent = cats[catClickedId].clicks;           
     }
 });
