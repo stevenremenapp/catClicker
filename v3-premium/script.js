@@ -45,21 +45,61 @@ console.log(catDivs);
 
 // Toggle cat div
 
-let cat1 = document.querySelector('ul > li');
-cat1.addEventListener('click', function() {
-    for (let i = 0; i < catDivs.length; i++) {
-        catDivs[i].classList.toggle('goAway');
-    }    
-});
+// let cat1 = document.querySelector('ul > li');
+// cat1.addEventListener('click', function() {
+//     for (let i = 0; i < catDivs.length; i++) {
+//         catDivs[i].classList.toggle('goAway');
+//     }    
+// });
+
+
+// PSEUDO CODE TO CREATE NAV LIST OF CAT NAMES
+
+// Create a ul element with class of nav
+let catListUl = document.createElement('UL');
+catListUl.setAttribute('class', 'nav');
+
+// Create as many li elements as there are cats in the object
+for (const catNum in cats) {
+    // console.log(cats[catNum]);
+    let catNameListOption = document.createElement('LI');
+    catNameListOption.textContent = cats[catNum].name;
+    catNameListOption.setAttribute('data-cat', catNum);
+    catListUl.appendChild(catNameListOption);
+    document.body.insertBefore(catListUl, catClicker);
+}
+
 
 // PSEUDO CODE TO CREATE A CAT DIV
 
+// Set event listener on the nav list
 
-// Create div with class of cat and correct data-cat attribute
-// Add p tag with the cat name as text
-// Add image with correct src and alt caption
-// Add span with text 'Number of cat clicks: '
-// Add span that holds and displays the number of clicks on each cat
+let catListNav = document.querySelector('.nav');
+catListNav.addEventListener('click', function(event) {
+    let selectedCatName = event.target;
+    if (selectedCatName.tagName === 'LI') {
+        let selectedCatId = selectedCatName.dataset.cat;
+        console.log(selectedCatId);
+        // Create div with class of cat and correct data-cat attribute
+        let newCatDiv = document.createElement('div');
+        newCatDiv.setAttribute('class', 'cat');
+        newCatDiv.setAttribute('data-cat', selectedCatId);
+        // Add p tag with the cat name as text
+        let displayCatName = document.createElement('p');
+        displayCatName.textContent = selectedCatName.textContent;
+        // Add image with correct src and alt caption
+        let catImage = document.createElement('img');
+        catImage.setAttribute('src', cats[selectedCatId].src);
+        catImage.setAttribute('alt', cats[selectedCatId].alt);
+        // Add span with text 'Number of cat clicks: '
+        let catClickCountTitle = document.createElement('span');
+        catClickCountTitle.textContent = 'Number of cat clicks: ';
+        // Add items to DOM in catClicker div
+        catClicker.appendChild(newCatDiv).appendChild(displayCatName);
+        newCatDiv.appendChild(catImage);
+        newCatDiv.appendChild(catClickCountTitle);
+    }
+});
 
 
 // PSEUDO CODE TO HIDE & SHOW DIVS AS CLICKS OCCUR
@@ -71,18 +111,6 @@ cat1.addEventListener('click', function() {
 // If user clicks on a different cat name then the current cat div is hidden (add css class) and the corresponding clicked cat div is created and added to the DOM (and so on and so on)
 // If user clicks on yet another cat name the currently displayed cat div is hidden and the clicked cat div is display or created and then displayed
 
-// Cat divs will always keep track of clicks on cat images
-
-
-// Set cat names
-
-for (let i = 0; i < catDivs.length; i++) {
-    let catName = document.createElement('p');
-    catName.setAttribute('class', 'catName');
-    catDivs[i].prepend(catName);
-    let catId = catDivs[i].dataset.cat;
-    catName.textContent = cats[catId].name;    
-}
 
 
 // Set event listener to count clicks on images
