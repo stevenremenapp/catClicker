@@ -1,0 +1,38 @@
+.nav {
+    list-style-type: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 0;
+}
+
+.nav li {
+    display: inline-block;
+    margin: 10px;
+}
+
+.catClicker {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.cat {
+    border: 2px solid black;
+    width: 240px;
+    height: 255px;
+    padding: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+img {
+    height: 159px;
+    width: 240px;
+    margin-bottom: 10px;
+}
+
+.hidden {
+    display: none;
+}
