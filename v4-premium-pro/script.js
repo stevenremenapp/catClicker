@@ -48,6 +48,7 @@ let methods = {
 
     init: function() {
         // Init cat div
+        data.currentCat = data.cats[0];
         this.catDiv = document.getElementById('cat');
         this.catName = document.getElementById('catName');
         this.catImage = document.getElementById('catImage');
@@ -92,15 +93,16 @@ let methods = {
     // Render the view
     render: function() {
         // Render the cat div
-        let currentCat = methods.getCurrentCat();
-        this.catName = currentCat.name;
-        this.catImage = currentCat.src;
-        this.catClickCount = currentCat.clicks;
+        let currentCat = this.getCurrentCat();
+        this.catName.textContent = currentCat.name;
+        this.catImage.src = currentCat.src;
+        this.catClickCount.textContent = currentCat.clicks;
 
         // Render the cat list
         let cat, listItem, i;
 
         let cats = methods.getCats();
+        //console.log(cats);
 
         this.catList.innerHTML = '';
 
@@ -115,9 +117,10 @@ let methods = {
                     methods.render();
                 };
             })(cat));
+            this.catList.appendChild(listItem);
         }
 
-        this.catList.appendChild(listItem);
+        
     }
 };
 
