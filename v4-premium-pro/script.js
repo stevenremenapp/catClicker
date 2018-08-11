@@ -58,6 +58,30 @@ let methods = {
             methods.incrementClickCount();
         });
 
+        // Init admin div
+        this.adminDiv = document.getElementById('adminDiv');
+        this.adminCatName = document.getElementById('adminCatName');
+        this.adminSrc = document.getElementById('adminSrc');
+        this.adminNumClicks = document.getElementById('adminNumClicks');
+
+        this.adminBtn = document.getElementById('adminBtn');
+        this.adminBtn.addEventListener('click', function() {
+            methods.adminDiv.classList.remove('hidden');
+        });
+
+        // Init cancel button
+        this.cancelBtn = document.getElementById('cancelBtn');
+        this.cancelBtn.addEventListener('click', function() {
+            methods.adminDiv.classList.add('hidden');
+        });
+
+        // Init save button
+        this.saveBtn = document.getElementById('saveBtn');
+        this.saveBtn.addEventListener('click', function() {
+            methods.updateCatInfo();
+            methods.adminDiv.classList.add('hidden');
+        });
+
         // Init cat list
         this.catList = document.getElementById('catList');
 
@@ -82,13 +106,13 @@ let methods = {
         methods.render();
     },
 
-    // Method for creating the cat nav list
-    createCatNav: function() {
-    
+    updateCatInfo: function() {
+        let currentCat = this.getCurrentCat();
+        currentCat.name = this.adminCatName.value;
+        currentCat.src = this.adminSrc.value;
+        currentCat.clicks = this.adminNumClicks.value;
+        methods.render();
     },
-    // Method for updating clickCount
-
-    // Method for setting current cat and displaying the cat
 
     // Render the view
     render: function() {
@@ -97,6 +121,11 @@ let methods = {
         this.catName.textContent = currentCat.name;
         this.catImage.src = currentCat.src;
         this.catClickCount.textContent = currentCat.clicks;
+
+        // Render the admin div
+        this.adminCatName.value = currentCat.name;
+        this.adminSrc.value = currentCat.src;
+        this.adminNumClicks.value = currentCat.clicks;
 
         // Render the cat list
         let cat, listItem, i;
@@ -118,108 +147,9 @@ let methods = {
                 };
             })(cat));
             this.catList.appendChild(listItem);
-        }
-
-        
+        }      
     }
 };
 
 // Launch Cat Clicker!
 methods.init();
-
-
-
-
-
-/*
-
-// Global Selectors
-let catClicker = document.querySelector('.catClicker');
-
-// Create a ul element with class of nav
-let catListUl = document.createElement('UL');
-catListUl.setAttribute('class', 'nav');
-
-
-// Create as many li elements as there are cats in the object
-for (const catNum in cats) {
-    let catNameListOption = document.createElement('LI');
-    catNameListOption.textContent = cats[catNum].name;
-    catNameListOption.setAttribute('data-cat', catNum);
-    catListUl.appendChild(catNameListOption);
-    document.body.insertBefore(catListUl, catClicker);
-}
-
-
-// Set event listener on the nav list
-let catListNav = document.querySelector('.nav');
-catListNav.addEventListener('click', function(event) {
-    let catDivs = document.querySelectorAll('.cat');
-    let selectedCatName = event.target;
-    let selectedCatId = selectedCatName.dataset.cat;
-    
-    // If list item is clicked and there are catDivs created/existing, then clear them
-    if (selectedCatName.tagName === 'LI' && catDivs) {
-        for (let i = 0; i < catDivs.length; i++) {
-            catDivs[i].classList.add('hidden');
-        }
-    }
-    // If list item is clicked and has not already been created, then create it
-    if ((selectedCatName.tagName === 'LI') && (!(selectedCatName.classList.contains('created')))) {
-        selectedCatName.setAttribute('class', 'created');
-        
-        // Create div with class of cat and correct data-cat attribute
-        let newCatDiv = document.createElement('div');
-        newCatDiv.setAttribute('class', 'cat');
-        newCatDiv.setAttribute('data-cat', selectedCatId);
-        // Add p tag with the cat name as text
-        let displayCatName = document.createElement('p');
-        displayCatName.textContent = selectedCatName.textContent;
-        // Add image with correct src and alt caption
-        let catImage = document.createElement('img');
-        catImage.setAttribute('src', cats[selectedCatId].src);
-        catImage.setAttribute('alt', cats[selectedCatId].alt);
-        // Add span with text 'Number of cat clicks: '
-        let catClickCountTitle = document.createElement('span');
-        catClickCountTitle.textContent = 'Number of cat clicks: ';
-        // Add span to display clickCount
-        clickDisplay = document.createElement('span');
-        clickDisplay.setAttribute('class', 'currentClicks');
-        clickDisplay.textContent = '0';
-        // Add items to DOM in catClicker div
-        catClicker.appendChild(newCatDiv).appendChild(displayCatName);
-        newCatDiv.appendChild(catImage);
-        newCatDiv.appendChild(catClickCountTitle);
-        newCatDiv.appendChild(clickDisplay);
-    // If list item is clicked and has already been created
-    } else if ((selectedCatName.tagName === 'LI') && (selectedCatName.classList.contains('created'))) {
-        // Hide all catDivs
-        for (let i = 0; i < catDivs.length; i++) {
-            catDivs[i].classList.add('hidden');
-            console.log(selectedCatId);
-            console.log(catDivs[i].dataset.cat);
-            // Reveal catDiv that matches the list item clicked
-            if (selectedCatId === catDivs[i].dataset.cat) {
-                catDivs[i].classList.remove('hidden');
-            }
-        }
-    }
-});
-
-// Set event listener to count clicks on images
-catClicker.addEventListener('click', function(event) {
-    if (event.target.tagName === 'IMG') {
-        console.log(event.target);
-        let catClickedId = event.target.parentNode.dataset.cat;
-        console.log(catClickedId);
-        let catDivClicked = event.target.parentNode;
-        // let catScore = cats[catClickedId].clicks;
-        // catScore += 1;
-        cats[catClickedId].clicks += 1;
-        console.log(cats[catClickedId].clicks);
-        let currentClickDisplay = catDivClicked.querySelector('.currentClicks');
-        currentClickDisplay.textContent = cats[catClickedId].clicks;           
-    }
-});
-
-*/

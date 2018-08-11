@@ -10,13 +10,27 @@
 <body>
     <h1>Cat Clicker Premium Pro</h1>
     <ul id="catList"></ul>
-    <!-- <div class="catClicker"> -->
-        <div class="cat">
-            <h2 id="catName"></h2>
-            <img id="catImage" src="" alt="">
-            <span>Number of cat clicks: </span><span id="clickCount"></span>
-        </div>
-    <!-- </div> -->
+    <div class="cat">
+        <h2 id="catName"></h2>
+        <img id="catImage" src="" alt="">
+        <span>Number of cat clicks: </span><span id="clickCount"></span>
+    </div>
+    <div class="centerBtn">
+        <button id="adminBtn">Admin</button>
+    </div>
+    <div class="admin hidden" id="adminDiv">
+        <label for="name">Cat Name: </label> <br>
+            <input type="text" name="name_of_cat" id="adminCatName">
+        <br>
+        <label for="source">Cat Image URL: </label>
+            <input type="text" name= "source_of_image" id="adminSrc">
+        <br>
+        <label for="numClicks">Number of Cat Clicks: </label>
+            <input type="number" name="number_of_clicks" id="adminNumClicks">
+        <br>
+        <button id="saveBtn">Save</button>
+        <button id="cancelBtn">Cancel</button>
+    </div>
     <script src="script.js"></script>
     <noscript>Please run JavaScript to access the content on this page.</noscript>
 </body>
