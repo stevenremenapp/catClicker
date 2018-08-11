@@ -65,8 +65,9 @@ let methods = {
         this.adminNumClicks = document.getElementById('adminNumClicks');
 
         this.adminBtn = document.getElementById('adminBtn');
-        this.adminBtn.addEventListener('click', function() {
-            methods.adminDiv.classList.remove('hidden');
+        // ARROW FUNCTION PRESERVES THE CONTEXT OF THIS
+        this.adminBtn.addEventListener('click', () => {
+            this.adminDiv.classList.remove('hidden');
         });
 
         // Init cancel button
